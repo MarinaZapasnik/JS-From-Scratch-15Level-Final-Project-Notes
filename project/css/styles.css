@@ -12,6 +12,7 @@ body {
 }
 
 .container {
+    margin: auto;
     max-width: 1280px;
     max-height: 720px;
     border: 2px solid rgb(9, 225, 13); 
@@ -79,13 +80,118 @@ body {
     width: 1150px;
     display: flex;
     flex-direction: column;
+    gap: 12px;
     border: 1px solid red;
+    border-radius: 4px;
+    padding: 24px;
+    width: 1152px;
+    height: 228px;
+    box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+    background: #fff;
 }
 
-.box {
-
+.title-section {
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+    width: 345px;
+    
 }
 
+#note-title {
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 6px 12px;
+    width: 344px;
+    height: 36px;
+}
+
+label[for="note-title"] {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 200%;
+    color: #919191;
+}
+
+.description-section {
+    width: 1104px;
+    height: 108px;
+    display: flex;
+    gap: 24px;
+}
+
+label[for="note-description"] {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 200%;
+    color: #919191;
+}
+
+#note-description{
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 6px 12px;
+    width: 848px;
+    height: 84px;
+}
+
+.description-panel {
+    width: 848px;
+    height: 108px;
+    display: flex;
+    flex-direction: column;
+}
+
+.note-panel {
+    width: 232px;
+    height: 108px;
+    display: flex;
+    flex-direction: column;
+}
+
+.choice-color {
+    width: 212px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.choice-color-text {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 200%;
+    color: #919191;
+}
+
+.choice-color-palette {
+    list-style: none;/* Убираем стандартные маркеры */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 8px;/* Промежуток между элементами */
+}
+
+.choice-color-palette li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;  /* Размер квадрата */
+    height: 36px;  /* Размер квадрата */
+    
+    background-color: transparent;  /* Прозрачный фон квадрата */
+}
+
+li .circle {
+    width: 24px;  /* Диаметр круга */
+    height: 24px;  /* Диаметр круга */
+    background-color: #C2F37D;  /* Цвет фона круга */
+    border-radius: 50%; /* Делаем элемент кругом */
+    border: 2px solid red;  /* Граница для наглядности */
+}
+  
+  
+  
+  
 .filter-box {
     height: 50px;
     width: 825px;
