@@ -8,15 +8,22 @@
 body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
-    
+       
 }
 
-#app {
+.container {
     max-width: 1280px;
     max-height: 720px;
-    border: 1px solid red;
-    margin: auto;
+    border: 2px solid rgb(9, 225, 13); 
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+
 
 .header {
     width: 100%;
@@ -24,18 +31,20 @@ body {
     box-shadow: 0 1px 3px 0 rgba(11, 12, 13, 0.16), 0 0 1px 0 rgba(11, 12, 13, 0.24);
     background: #fff;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
+    border: 1px solid red;
 }
 
 .header-logo {
     width: 110px;
     height: 24px;
-    margin: 17px auto 20px 64px;
+    margin-left: 64px;
 }
 
 .header-notes {
-   
-    margin: 18px 64px 18px auto;
+    margin-right: 64px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -60,3 +69,25 @@ body {
     font-weight: 700;
 }
 
+#main {
+    display: flex;
+    flex-direction: column;
+}
+
+.note-form {
+    height: 230px;
+    width: 1150px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+}
+
+.box {
+
+}
+
+.filter-box {
+    height: 50px;
+    width: 825px;
+    margin-bottom: 222px;
+}
