@@ -46,23 +46,29 @@
                             placeholder="Напишите описание новой заметки..." maxlength="200" required>
                     </div>
                     <div class="note-panel">
-                        <div class="choice-color">
-                            <div class="choice-color-text">Выберите цвет заметки
-
-                            </div>
-
-                            
-                                <ul class="choice-color-palette">
-                                    <div><li class="color-orange"></li></div>
-                                    <div><li class="color-green"></li></div>
-                                    <div><li class="color-blue"></li></div>
-                                    <div><li class="color-red"></li></div>
-                                    <div><li class="color-purple"></li></div>
+                        <fieldset class="fieldset">
+                                <legend class="label">Выберите цвет заметки</legend>
+                                <ul class="radio-list">
+                                    <li>
+                                        <input checked class="radio" type="radio" name="color" value="yellow"
+                                            aria-label="yellow" />
+                                    </li>
+                                    <li>
+                                        <input class="radio" type="radio" name="color" value="red" aria-label="red" />
+                                    </li>
+                                    <li>
+                                        <input class="radio" type="radio" name="color" value="green"
+                                            aria-label="green" />
+                                    </li>
+                                    <li>
+                                        <input class="radio" type="radio" name="color" value="blue" aria-label="blue" />
+                                    </li>
+                                    <li>
+                                        <input class="radio" type="radio" name="color" value="purple"
+                                            aria-label="purple" />
+                                    </li>
                                 </ul>
-                            
-                        </div>
-
-
+                        </fieldset>
 
                         <button type="submit" id="note-add"><img src="assets/plus-svgrepo-com 1.png" alt="PLUS">Добавить
                             заметку</button>
