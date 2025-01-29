@@ -8,7 +8,6 @@
 body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
-       
 }
 
 .container {
@@ -76,8 +75,8 @@ body {
 }
 
 .note-form {
-    height: 230px;
-    width: 1150px;
+    max-height: 230px;
+    max-width: 1150px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -133,6 +132,16 @@ label[for="note-description"] {
     padding: 6px 12px;
     width: 848px;
     height: 84px;
+    display: flex;
+}
+#note-description::placeholder {
+    height: 24px;
+    width: 824px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 171%;
+    color: #919191;
+    padding: 6px 12px 54px 12px;
 }
 
 .description-panel {
@@ -147,6 +156,7 @@ label[for="note-description"] {
     height: 108px;
     display: flex;
     flex-direction: column;
+    gap: 12px;
 }
 
 .choice-color {
@@ -171,29 +181,48 @@ label[for="note-description"] {
     gap: 8px;/* Промежуток между элементами */
 }
 
-.choice-color-palette li {
+
+
+.choice-color-palette div {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 36px;  /* Размер квадрата */
-    height: 36px;  /* Размер квадрата */
-    
-    background-color: transparent;  /* Прозрачный фон квадрата */
-}
+    width: 36px; /* Размер квадрата */
+    height: 36px; /* Размер квадрата */
+  }
 
-li .circle {
+.choice-color-palette li {
     width: 24px;  /* Диаметр круга */
     height: 24px;  /* Диаметр круга */
     background-color: #C2F37D;  /* Цвет фона круга */
-    border-radius: 50%; /* Делаем элемент кругом */
-    border: 2px solid red;  /* Граница для наглядности */
+    border-radius: 30px; /* Делаем элемент кругом */ 
 }
   
-  
-  
-  
+#note-add {
+    border: none;
+    border-radius: 10px;
+    padding: 6px 24px;
+    width: 232px;
+    height: 36px;
+    background: #457cdc;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    color: #fff;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    padding: 6px 24px 6px 24px;
+}
+
+.box {
+    padding-bottom: 222px;
+    padding-top: 138px;
+}
 .filter-box {
-    height: 50px;
-    width: 825px;
-    margin-bottom: 222px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+    color: #000;
 }
