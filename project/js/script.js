@@ -50,7 +50,8 @@ const model = {
         this.notes.unshift(newNote); 
         view.renderNotes(this.notes);
     },
-};
+    
+    };
 
 const view = {
     init() {
@@ -58,46 +59,50 @@ const view = {
         const form = document.querySelector('.note-form');
         const inputTitle = document.querySelector('#note-title');
         const inputDescription = document.querySelector('#note-description');
-        //const list = document.querySelector('.notes-list');
+        const choiseColor = document.querySelector('.radio-list');
+        let color = document.querySelector('input[name="color"]:checked').value;
+        
+        choiseColor.addEventListener('change', function(event) {
+            if (event.target.name === 'color') {
+                color = event.target.value;
+            }
 
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             const title = inputTitle.value;
             const description = inputDescription.value;
-            const color = "blue" ;// пока что не знаю что тут делать
+            
             controller.addNote(title, description, color);
             inputTitle.value = '';
             inputDescription.value = '';
+        });
+
+       
 
         });
     },
-    renderNotes(notes) { 
-        // const title = document.querySelector('label[for="note-title"]');
+    // const title = document.querySelector('label[for="note-title"]');
         // const description = document.querySelector('label[for="note-description"]');
         // const color = document.querySelector('input[type="radio"]:checked');
-
+    renderNotes(notes) { 
         
     const list = document.querySelector('.notes-list');
     let notesHTML = '';
 
     for (let i = 0; i < notes.length; i++) {
-      const note = notes[i];
-     
-      notesHTML += `
-          <li class="note-frame" id="${note.id}" class="${note.isFavorite ? "favorite" : ""}">
-            <div class="note-frame-header">
-                <h2 class="note-title">${note.title}</h2>
-                <div class="note-icons">
-                    <img class="heart-inactive" src="assets/heart-inactive.png" alt="INACTIVE">
-                    <img class="trash" src="assets/trash.png" alt="DELETE">
+        const note = notes[i];
+        notesHTML += `
+            <li class="note-frame ${note.color} ${note.isFavorite ? "favorite" : ""}" id="${note.id}">
+                <div class="note-frame-header">
+                    <h2 class="note-title">${note.title}</h2>
+                    <div class="note-icons">
+                        <img class="heart-inactive" src="assets/heart-inactive.png" alt="INACTIVE">
+                        <img class="trash" src="assets/trash.png" alt="DELETE">
+                    </div>
                 </div>
-                
-            </div>
-            
-            <p class="note-description">${note.description}</p>
-          </li>
-        `;
-        
+                <p class="note-description">${note.description}</p>
+            </li>
+            `;
     }
 
     list.innerHTML = notesHTML;
@@ -109,10 +114,12 @@ const view = {
 
 const controller = {
     addNote(title, description, color) {
-        if (title && title.trim() !== '' && description) {
+        if (title && title.trim() !== '' && description && description.trim() !== '') {
             model.addNote(title, description, color)
+            //else {} в дальнейшем добавим сообщения об ошибках!
         }
     },
+    
 
 };
 
