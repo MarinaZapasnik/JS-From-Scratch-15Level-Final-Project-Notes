@@ -2,28 +2,28 @@ const MOCK_NOTES = [
     {
     id: 1,
     title: 'Работа с формами',
-    content: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
+    description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
     color: 'green',
     isFavorite: false,
   },
   {
     id: 2,
     title: 'Работа с формами',
-    content: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
+    description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
     color: 'green',
     isFavorite: true,
   },
   {
     id: 3,
     title: 'Работа с формами',
-    content: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
+    description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
     color: 'green',
     isFavorite: false,
   },
   {
     id: 4,
     title: 'Работа с формами',
-    content: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
+    description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
     color: 'green',
     isFavorite: false,
   },
@@ -82,16 +82,22 @@ const view = {
 
     for (let i = 0; i < notes.length; i++) {
       const note = notes[i];
-      console.log('Render Note:', note);
-
+     
       notesHTML += `
-          <li id="${note.id}" class="${note.isFavorite ? "favorite" : ""}">
-            <h2 class="note-title">${note.title}</h2>
-            <img class="heart-inactive" src="assets/heart-inactive.png" alt="INACTIVE">
-            <img class="trash" src="assets/trash.png" alt="DELETE">
-            <p class="note-title">${note.description}</p>
+          <li class="note-frame" id="${note.id}" class="${note.isFavorite ? "favorite" : ""}">
+            <div class="note-frame-header">
+                <h2 class="note-title">${note.title}</h2>
+                <div class="note-icons">
+                    <img class="heart-inactive" src="assets/heart-inactive.png" alt="INACTIVE">
+                    <img class="trash" src="assets/trash.png" alt="DELETE">
+                </div>
+                
+            </div>
+            
+            <p class="note-description">${note.description}</p>
           </li>
         `;
+        
     }
 
     list.innerHTML = notesHTML;

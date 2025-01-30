@@ -13,7 +13,7 @@ body {
 .container {
     margin: auto;
     max-width: 1280px;
-    max-height: 720px;
+    height: 100vh;
     border: 2px solid rgb(9, 225, 13); 
     width: 100%;
     height: 100%;
@@ -21,6 +21,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 
@@ -75,16 +76,15 @@ body {
 }
 
 .note-form {
-    max-height: 230px;
+    min-height: 230px;
     max-width: 1150px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 12px;
     border: 1px solid red;
     border-radius: 4px;
     padding: 24px;
-    width: 1152px;
-    height: 228px;
     box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
     background: #fff;
 }
@@ -113,7 +113,8 @@ label[for="note-title"] {
 }
 
 .description-section {
-    width: 1104px;
+    max-width: 1104px;
+    width: 100%;
     height: 108px;
     display: flex;
     gap: 24px;
@@ -130,7 +131,8 @@ label[for="note-description"] {
     border: 1px solid #e8e8e8;
     border-radius: 10px;
     padding: 6px 12px;
-    width: 848px;
+    max-width: 848px;
+    width: 100%;
     height: 84px;
     display: flex;
 }
@@ -145,7 +147,7 @@ label[for="note-description"] {
 }
 
 .description-panel {
-    width: 848px;
+    max-width: 848px;
     height: 108px;
     display: flex;
     flex-direction: column;
@@ -232,6 +234,7 @@ fieldset {
 .box {
     padding-bottom: 222px;
     padding-top: 138px;
+    
 }
 .filter-box {
     font-weight: 500;
@@ -239,4 +242,62 @@ fieldset {
     line-height: 150%;
     text-align: center;
     color: #000;
+}
+
+.notes-list {
+    max-width: 1152px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 0;
+}
+
+.note-frame {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 12px 0px 0px 0px;
+    width: 368px;
+    height: auto;
+    box-shadow: 0 4px 8px 0 rgba(11, 12, 13, 0.08), 0 8px 16px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+    background: #f3db7d;
+    
+}
+
+.note-frame-header {
+    width: 344px;
+    height: 24px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+h2.note-title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    
+    color: #292515;
+}
+
+p.note-description {
+    padding: 12px;
+    width: 368px;
+    height: auto;
+    background: #fff;
+}
+
+.note-icons {
+    width: 44px;
+    height: 16px;
+    display: flex;
+    gap: 12px;
+}
+
+.heart-inactive,
+.trash {
+    height: 16px;
+    width: 16px;
 }
