@@ -38,7 +38,7 @@ const colors = {
 };
 
 const model = {
-    notes: [],
+    notes: MOCK_NOTES,
     addNote(title, description, color) {
         const newNote = {
             id: new Date().getTime(), 
@@ -53,11 +53,12 @@ const model = {
     toggleHeart(id) {
       const note = this.notes.find(note => note.id === id);
       note.isFavorite = !note.isFavorite
-      
       view.renderNotes(this.notes);
-    }
-    
-    
+    },
+    deleteNote(id) {
+      this.notes = this.notes.filter(el => el.id !== id);
+      view.renderNotes(this.notes);
+    }    
     };
 
 const view = {
@@ -88,9 +89,13 @@ const view = {
         });
       });
       list.addEventListener('click', function(event) {
+        const id = +event.target.closest('.note-frame').id;
+
         if (event.target.classList.contains('heart-inactive') || event.target.classList.contains('heart-active')) {
-          const id = +event.target.closest('.note-frame').id
           controller.toggleHeart(id);
+        };
+        if (event.target.classList.contains('trash')) {
+          controller.deleteNote(id);
         }
       })
 
@@ -145,8 +150,10 @@ const controller = {
     },
     toggleHeart(id){
       model.toggleHeart(id);
+    },
+    deleteNote(id) {
+      model.deleteNote(id);
     }
-    
 };
 
 function init() {
