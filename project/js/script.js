@@ -10,21 +10,21 @@ const MOCK_NOTES = [
     id: 2,
     title: 'Работа с формами',
     description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
-    color: 'green',
+    color: 'red',
     isFavorite: true,
   },
   {
     id: 3,
     title: 'Работа с формами',
     description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
-    color: 'green',
+    color: 'purple',
     isFavorite: false,
   },
   {
     id: 4,
     title: 'Работа с формами',
     description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
-    color: 'green',
+    color: 'blue',
     isFavorite: false,
   },
 ];
@@ -51,63 +51,64 @@ const model = {
         view.renderNotes(this.notes);
     },
     
+    
     };
 
 const view = {
-    init() {
-        this.renderNotes(model.notes)
-        const form = document.querySelector('.note-form');
-        const inputTitle = document.querySelector('#note-title');
-        const inputDescription = document.querySelector('#note-description');
-        const choiseColor = document.querySelector('.radio-list');
-        let color = document.querySelector('input[name="color"]:checked').value;
+  init() {
+    this.renderNotes(model.notes);
+    const form = document.querySelector(".note-form");
+    const inputTitle = document.querySelector("#note-title");
+    const inputDescription = document.querySelector("#note-description");
+    const choiseColor = document.querySelector(".radio-list");
+    let color = document.querySelector('input[name="color"]:checked').value;
+    
+    choiseColor.addEventListener("change", function (event) {
+      if (event.target.name === "color") {
+        color = event.target.value;
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const title = inputTitle.value;
+        const description = inputDescription.value;
+
+        controller.addNote(title, description, color);
+        inputTitle.value = "";
+        inputDescription.value = "";
+
         
-        choiseColor.addEventListener('change', function(event) {
-            if (event.target.name === 'color') {
-                color = event.target.value;
-            }
+      });
+    });
+  },
+  
+  renderNotes(notes) {
+    const list = document.querySelector(".notes-list");
+    const count = document.querySelector(".header-notes-count");
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const title = inputTitle.value;
-            const description = inputDescription.value;
-            
-            controller.addNote(title, description, color);
-            inputTitle.value = '';
-            inputDescription.value = '';
-        });
-
-       
-
-        });
-    },
-    // const title = document.querySelector('label[for="note-title"]');
-        // const description = document.querySelector('label[for="note-description"]');
-        // const color = document.querySelector('input[type="radio"]:checked');
-    renderNotes(notes) { 
-        
-    const list = document.querySelector('.notes-list');
-    let notesHTML = '';
+    let notesHTML = "";
+    let countContent = notes.length;
 
     for (let i = 0; i < notes.length; i++) {
-        const note = notes[i];
+      const note = notes[i];
         notesHTML += `
-            <li class="note-frame ${note.color} ${note.isFavorite ? "favorite" : ""}" id="${note.id}">
-                <div class="note-frame-header">
-                    <h2 class="note-title">${note.title}</h2>
-                    <div class="note-icons">
-                        <img class="heart-inactive" src="assets/heart-inactive.png" alt="INACTIVE">
-                        <img class="trash" src="assets/trash.png" alt="DELETE">
-                    </div>
-                </div>
-                <p class="note-description">${note.description}</p>
-            </li>
-            `;
+              <li class="note-frame ${note.color} ${
+          note.isFavorite ? "favorite" : ""
+        }" id="${note.id}">
+                  <div class="note-frame-header">
+                      <h2 class="note-title">${note.title}</h2>
+                      <div class="note-icons">
+                          <img class="heart-inactive" src="assets/heart-inactive.png" alt="INACTIVE">
+                          <img class="trash" src="assets/trash.png" alt="DELETE">
+                      </div>
+                  </div>
+                  <p class="note-description">${note.description}</p>
+              </li>
+              `;
     }
-
+    count.textContent = countContent
     list.innerHTML = notesHTML;
-
-    },
+  },
 };
 
 
@@ -120,7 +121,6 @@ const controller = {
         }
     },
     
-
 };
 
 function init() {
