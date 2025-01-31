@@ -38,7 +38,7 @@ const colors = {
 };
 
 const model = {
-    notes: MOCK_NOTES,
+    notes: [],
     addNote(title, description, color) {
         const newNote = {
             id: new Date().getTime(), 
@@ -100,9 +100,11 @@ const view = {
   renderNotes(notes) {
     const list = document.querySelector(".notes-list");
     const count = document.querySelector(".header-notes-count");
+    const filterBox = document.querySelector(".filter-box")
 
     let notesHTML = "";
     let countContent = notes.length;
+    let filterBoxContent = ""
 
     for (let i = 0; i < notes.length; i++) {
       const note = notes[i];
@@ -120,8 +122,15 @@ const view = {
               </li>
               `;
     }
-    count.textContent = countContent
+
+    if (+countContent <= 0) {
+        filterBoxContent += `<h2>У вас нет еще ни одной заметки <br> 
+                            Заполните поля выше и создайте свою первую заметку!</h2>`
+    }
+
+    count.textContent = countContent;
     list.innerHTML = notesHTML;
+    filterBox.innerHTML = filterBoxContent;
   },
 };
 
