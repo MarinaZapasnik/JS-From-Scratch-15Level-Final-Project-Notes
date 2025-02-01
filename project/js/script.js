@@ -58,37 +58,27 @@ const model = {
     deleteNote(id) {
       this.notes = this.notes.filter(el => el.id !== id);
       view.renderNotes(this.notes);
-    }    
+    },
+    showFavoriteNotes(isFavorite) {
+      const favoriteNotes = this.notes.filter(el => el.isFavorite === isFavorite);
+      view.renderNotes(favoriteNotes);
+    }  
     };
 
 const view = {
+ 
   init() {
     this.renderNotes(model.notes);
+    const box = document.querySelector('.box');
     const form = document.querySelector(".note-form");
     const inputTitle = document.querySelector("#note-title");
     const inputDescription = document.querySelector("#note-description");
-    const choiseColor = document.querySelector(".radio-list");
-    let color = document.querySelector('input[name="color"]:checked').value;
-    const list = document.querySelector(".notes-list");
     
-      choiseColor.addEventListener("change", function (event) {
-        if (event.target.name === "color") {
-          color = event.target.value;
-        };
+    let color = document.querySelector('input[name="color"]:checked').value;
+    
+    const filterBox = document.querySelector(".filter-box");
 
-        form.addEventListener("submit", function (event) {
-          event.preventDefault();
-          const title = inputTitle.value;
-          const description = inputDescription.value;
-
-          controller.addNote(title, description, color);
-          inputTitle.value = "";
-          inputDescription.value = "";
-
-          
-        });
-      });
-      list.addEventListener('click', function(event) {
+      box.addEventListener('click', function(event) {
         const id = +event.target.closest('.note-frame').id;
 
         if (event.target.classList.contains('heart-inactive') || event.target.classList.contains('heart-active')) {
@@ -96,46 +86,74 @@ const view = {
         };
         if (event.target.classList.contains('trash')) {
           controller.deleteNote(id);
+        };
+        
+      });
+        
+      form.addEventListener("click", function (event) {
+        if (event.target.name === "color") {
+          color = event.target.value;
+        };
+      });
+
+      form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const title = inputTitle.value;
+          const description = inputDescription.value;
+
+          controller.addNote(title, description, color);
+          inputTitle.value = "";
+          inputDescription.value = "";
+      });
+      
+
+      filterBox.addEventListener('click', function(event) {
+        if (event.target.classList.contains('favorite')) {
+          controller.showFavoriteNotes(event.target.checked);
+          view.isFavorite = event.target.checked;
         }
-      })
-
-
+      });
   },
   
   renderNotes(notes) {
+    
     const list = document.querySelector(".notes-list");
     const count = document.querySelector(".header-notes-count");
-    const filterBox = document.querySelector(".filter-box")
-
-    let notesHTML = "";
+    const filterBox = document.querySelector(".filter-box");
     let countContent = notes.length;
+    
+    let notesHTML = "";
     let filterBoxContent = ""
 
-    for (let i = 0; i < notes.length; i++) {
-      const note = notes[i];
-        notesHTML += `
-              <li class="note-frame ${note.color} ${note.isFavorite ? "favorite" : ""}" id="${note.id}">
-                  <div class="note-frame-header">
-                      <h2 class="note-title">${note.title}</h2>
-                      <div class="note-icons">
-                          <img class="${note.isFavorite ? "heart-active" : "heart-inactive"}" 
-                          src="${note.isFavorite ? "assets/heart-active.png" : "assets/heart-inactive.png"}" alt="favorite">
-                          <img class="trash" src="assets/trash.png" alt="DELETE">
-                      </div>
-                  </div>
-                  <p class="note-description">${note.description}</p>
-              </li>
-              `;
-    }
+    if(countContent > 0) {
+      filterBoxContent = filterBox.innerHTML;
+      for (let i = 0; i < countContent; i++) {
+        const note = notes[i];
+          notesHTML += `
+                <li class="note-frame ${note.color} ${note.isFavorite ? "favorite" : ""}" id="${note.id}">
+                    <div class="note-frame-header">
+                        <h2 class="note-title">${note.title}</h2>
+                        <div class="note-icons">
+                            <img class="${note.isFavorite ? "heart-active" : "heart-inactive"}" 
+                            src="${note.isFavorite ? "assets/heart-active.png" : "assets/heart-inactive.png"}" alt="favorite">
+                            <img class="trash" src="assets/trash.png" alt="DELETE">
+                        </div>
+                    </div>
+                    <p class="note-description">${note.description}</p>
+                </li>
+                `;
+      };
 
-    if (+countContent <= 0) {
-        filterBoxContent += `<h2>У вас нет еще ни одной заметки <br> 
-                            Заполните поля выше и создайте свою первую заметку!</h2>`
-    }
-
-    count.textContent = countContent;
+    } else {
+      filterBoxContent = ''
+      notesHTML += `<h2>У вас нет ни одной заметки <br> 
+                    Заполните поля выше и создайте свою первую заметку!</h2>`
+    };
+    
     list.innerHTML = notesHTML;
     filterBox.innerHTML = filterBoxContent;
+    count.textContent = countContent;
+    
   },
 };
 
@@ -153,6 +171,10 @@ const controller = {
     },
     deleteNote(id) {
       model.deleteNote(id);
+    },
+    showFavoriteNotes(isFavorite) {
+        model.showFavoriteNotes(isFavorite);
+      
     }
 };
 

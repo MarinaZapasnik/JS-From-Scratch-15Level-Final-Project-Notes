@@ -248,6 +248,10 @@ fieldset {
     color: #000;
 }
 
+.favorite-checkbox {
+    
+}
+
 .notes-list {
     max-width: 1152px;
     display: flex;
