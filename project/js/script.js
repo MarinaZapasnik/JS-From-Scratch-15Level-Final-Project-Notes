@@ -124,6 +124,16 @@ const view = {
         }
       });
   },
+
+  showDoneMessage(){
+    const messageBox = document.querySelector('.messages-box');
+      messageBox.innerHTML += `<img src="assets/AlertDone.png" alt="DONE">`;
+      const removeMessage = () => {
+        messageBox.innerHTML = '';
+      }
+      setTimeout(removeMessage, 2000)
+
+  },
   
   renderNotes(notes) {
     
@@ -175,7 +185,7 @@ const controller = {
     addNote(title, description, color) {
         if (title && title.trim() !== '' && description && description.trim() !== '') {
             model.addNote(title, description, color)
-            //else {} в дальнейшем добавим сообщения об ошибках!
+            view.showDoneMessage()
         }
     },
     toggleHeart(id){
