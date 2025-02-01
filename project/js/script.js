@@ -59,10 +59,10 @@ const model = {
       this.notes = this.notes.filter(el => el.id !== id);
       view.renderNotes(this.notes);
     },
-    showFavoriteNotes(isFavorite) {
-      const favoriteNotes = this.notes.filter(el => el.isFavorite === isFavorite);
+    showFavoriteNotes() {
+      const favoriteNotes = this.notes.filter(el => el.isFavorite);
       view.renderNotes(favoriteNotes);
-    }  
+    },
     };
 
 const view = {
@@ -78,8 +78,15 @@ const view = {
     
     const filterBox = document.querySelector(".filter-box");
 
+    
+
       box.addEventListener('click', function(event) {
-        const id = +event.target.closest('.note-frame').id;
+        const noteFrame = event.target.closest('.note-frame');
+        if (!noteFrame) {
+          return
+        }
+        const id = +noteFrame.id;
+        
 
         if (event.target.classList.contains('heart-inactive') || event.target.classList.contains('heart-active')) {
           controller.toggleHeart(id);
@@ -107,10 +114,13 @@ const view = {
       });
       
 
-      filterBox.addEventListener('click', function(event) {
+      filterBox.addEventListener('change', function(event) {
         if (event.target.classList.contains('favorite')) {
-          controller.showFavoriteNotes(event.target.checked);
-          view.isFavorite = event.target.checked;
+          if (event.target.checked) {
+            controller.showFavoriteNotes();
+          } else {
+            controller.showAllNotes();
+          }
         }
       });
   },
@@ -121,9 +131,10 @@ const view = {
     const count = document.querySelector(".header-notes-count");
     const filterBox = document.querySelector(".filter-box");
     let countContent = notes.length;
-    
+
     let notesHTML = "";
-    let filterBoxContent = ""
+    let filterBoxContent = "";
+    const isFavoriteChecked = filterBox.querySelector('.favorite').checked;
 
     if(countContent > 0) {
       filterBoxContent = filterBox.innerHTML;
@@ -153,6 +164,7 @@ const view = {
     list.innerHTML = notesHTML;
     filterBox.innerHTML = filterBoxContent;
     count.textContent = countContent;
+    filterBox.querySelector('.favorite').checked = isFavoriteChecked;
     
   },
 };
@@ -172,10 +184,12 @@ const controller = {
     deleteNote(id) {
       model.deleteNote(id);
     },
-    showFavoriteNotes(isFavorite) {
-        model.showFavoriteNotes(isFavorite);
-      
-    }
+    showFavoriteNotes() {
+      model.showFavoriteNotes();
+    },
+    showAllNotes() {
+      view.renderNotes(model.notes);
+    },
 };
 
 function init() {
