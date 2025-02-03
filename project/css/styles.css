@@ -4,6 +4,23 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'Montserrat';
+    src: url('assets\fonts\Montserrat-Bold.ttf') format('truetype');
+    
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('assets\fonts\Montserrat-Medium.ttf') format('truetype');
+  
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('assets\fonts\Montserrat-Regular.ttf') format('truetype');
+    
+}
 
 body {
     margin: 0;
@@ -14,7 +31,6 @@ body {
     margin: auto;
     max-width: 1280px;
     height: 100vh;
-    border: 2px solid rgb(9, 225, 13); 
     width: 100%;
     height: 100%;
     display: flex;
@@ -23,7 +39,6 @@ body {
     align-items: center;
     overflow: hidden;
 }
-
 
 
 .header {
@@ -35,7 +50,6 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    border: 1px solid red;
 }
 
 .header-logo {
@@ -66,14 +80,17 @@ body {
     color: #000;
     
 }
+
 .header-notes-count {
     font-weight: 700;
 }
 
-#main {
+main {
     display: flex;
     flex-direction: column;
-}
+    align-items: center;
+    width: 100%;
+    }
 
 .note-form {
     min-height: 230px;
@@ -82,12 +99,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    border: 1px solid red;
     border-radius: 4px;
     padding: 24px;
     box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
     background: #fff;
-   
+    margin: 24px;
 }
 
 .title-section {
@@ -162,7 +178,22 @@ label[for="note-description"] {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    
+}
+
+.fieldset {
+    height: 60px;
+    width: 212px;
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    height: 24px;
+    width: 100%;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 200%;
+    color: #919191;
 }
 
 fieldset {
@@ -177,10 +208,12 @@ fieldset {
     display: flex;
     gap: 14px;
     list-style: none;
-    padding-left: 0;
+    padding: 0;
+    width: 100%;
+    height: 36px;
+    margin: 0;
   }
-   
-   
+      
   .radio {
     appearance: none;
     display: inline-block;
@@ -216,30 +249,35 @@ fieldset {
     0 0 0 4.5px #007BFF; /* Внешняя обводка */
   }
 
-
-
-#note-add {
+button#note-add {
     border: none;
     border-radius: 10px;
     padding: 6px 24px;
     width: 232px;
-    height: 36px;
+    height: 100%;
     background: #457cdc;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    padding: 6px 24px 6px 24px; 
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
     color: #fff;
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    padding: 6px 24px 6px 24px;
+    cursor: pointer;
 }
 
 .box {
-    padding-bottom: 222px;
-    padding-top: 138px;
-    
+    height: auto;
+    max-width: 1152px;    
 }
+
+.favorite-checkbox{
+    display: flex;
+    justify-content: end;
+    
+} 
+
 .filter-box {
     font-weight: 500;
     font-size: 16px;
@@ -248,16 +286,23 @@ fieldset {
     color: #000;
 }
 
-.favorite-checkbox {
-    
-}
-
 .notes-list {
     max-width: 1152px;
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
     padding: 0;
+}
+
+.notes-list h2 {
+    height: 48px;
+    width: 824px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+    color: #000;
+    margin: auto;
 }
 
 .note-frame {
