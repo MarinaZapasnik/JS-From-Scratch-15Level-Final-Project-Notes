@@ -1,5 +1,5 @@
 const MOCK_NOTES = [
-    {
+  {
     id: 1,
     title: 'Работа с формами',
     description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
@@ -8,26 +8,48 @@ const MOCK_NOTES = [
   },
   {
     id: 2,
-    title: 'Работа с формами',
-    description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
+    title: 'Валидация форм',
+    description: 'Проверка данных на стороне клиента позволяет избежать лишних запросов на сервер и повысить удобство использования формы',
     color: 'red',
     isFavorite: true,
   },
   {
     id: 3,
-    title: 'Работа с формами',
-    description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
+    title: 'События в форме',
+    description: 'Обработка событий формы, таких как submit и change, помогает управлять поведением формы и её взаимодействием с пользователем',
     color: 'purple',
     isFavorite: false,
   },
   {
     id: 4,
-    title: 'Работа с формами',
-    description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
+    title: 'Стилизация форм',
+    description: 'Используйте CSS для стилизации форм и их элементов, чтобы улучшить внешний вид и удобство использования',
     color: 'blue',
     isFavorite: false,
   },
+  {
+    id: 5,
+    title: 'Адаптивные формы',
+    description: 'Создайте формы, которые адаптируются под разные устройства и экраны, чтобы обеспечить лучшую совместимость и удобство использования',
+    color: 'blue',
+    isFavorite: true,
+  },
+  {
+    id: 6,
+    title: 'Динамические формы',
+    description: 'Используйте JavaScript для создания динамических форм, которые изменяются в зависимости от действий пользователя',
+    color: 'yellow',
+    isFavorite: false,
+  },
+  {
+    id: 7,
+    title: 'Безопасность форм',
+    description: 'Обеспечьте безопасность форм, защищая их от атак, таких как XSS и CSRF, и шифруя передаваемые данные',
+    color: 'green',
+    isFavorite: true,
+  },
 ];
+
 
 const colors = {
     GREEN: 'green',
@@ -59,8 +81,8 @@ const model = {
       this.notes = this.notes.filter(el => el.id !== id);
       view.renderNotes(this.notes);
     },
-    showFavoriteNotes() {
-      const favoriteNotes = this.notes.filter(el => el.isFavorite);
+    showFavoriteNotes(favoriteNotes) {
+      favoriteNotes = this.notes.filter(el => el.isFavorite);
       view.renderNotes(favoriteNotes);
     },
     };
@@ -117,7 +139,7 @@ const view = {
       filterBox.addEventListener('change', function(event) {
         if (event.target.classList.contains('favorite')) {
           if (event.target.checked) {
-            controller.showFavoriteNotes();
+            controller.showFavoriteNotes(notes);
           } else {
             controller.showAllNotes();
           }
@@ -140,41 +162,47 @@ const view = {
     const list = document.querySelector(".notes-list");
     const count = document.querySelector(".header-notes-count");
     const filterBox = document.querySelector(".filter-box");
-    let countContent = notes.length;
+    const countContent = model.notes.length;
 
     let notesHTML = "";
-    let filterBoxContent = "";
-    const isFavoriteChecked = filterBox.querySelector('.favorite').checked;
-
-    if(countContent > 0) {
-      filterBoxContent = filterBox.innerHTML;
-      for (let i = 0; i < countContent; i++) {
-        const note = notes[i];
-          notesHTML += `
-                <li class="note-frame ${note.color} ${note.isFavorite ? "favorite" : ""}" id="${note.id}">
-                    <div class="note-frame-header">
-                        <h2 class="note-title">${note.title}</h2>
-                        <div class="note-icons">
-                            <img class="${note.isFavorite ? "heart-active" : "heart-inactive"}" 
-                            src="${note.isFavorite ? "assets/heart-active.png" : "assets/heart-inactive.png"}" alt="favorite">
-                            <img class="trash" src="assets/trash.png" alt="DELETE">
-                        </div>
-                    </div>
-                    <p class="note-description">${note.description}</p>
-                </li>
-                `;
-      };
+        
+    const favoriteCheckBox = filterBox.querySelector('.favorite');
+    const isFavoriteChecked = favoriteCheckBox.checked;
+    const filteredNotes = (favoriteCheckBox && isFavoriteChecked)? notes.filter(note => note.isFavorite) : notes;
+    
+    if (countContent > 0) {
+      filteredNotes.forEach(note => {
+        notesHTML += `
+          <li class="note-frame ${note.color} ${note.isFavorite ? "favorite" : ""}" id="${note.id}">
+            <div class="note-frame-header">
+              <h2 class="note-title">${note.title}</h2>
+              <div class="note-icons">
+                <img class="${note.isFavorite ? "heart-active" : "heart-inactive"}" 
+                src="${note.isFavorite ? "assets/heart-active.png" : "assets/heart-inactive.png"}" alt="favorite">
+                <img class="trash" src="assets/trash.png" alt="DELETE">
+              </div>
+            </div>
+            <p class="note-description">${note.description}</p>
+          </li>
+        `;
+      });
+      filterBox.style.display = 'block';
+      
+      notesHTML = filteredNotes.length > 0 ? notesHTML :  notesHTML += `<h2>Среди ваших заметок нет избранных!</h2>`;
+      
 
     } else {
-      filterBoxContent = ''
+      
       notesHTML += `<h2>У вас нет ни одной заметки <br> 
-                    Заполните поля выше и создайте свою первую заметку!</h2>`
+                    Заполните поля выше и создайте свою первую заметку!</h2>`;
+      filterBox.style.display = 'none';
     };
     
     list.innerHTML = notesHTML;
-    filterBox.innerHTML = filterBoxContent;
+   
     count.textContent = countContent;
-    filterBox.querySelector('.favorite').checked = isFavoriteChecked;
+    favoriteCheckBox.checked = isFavoriteChecked;
+    
     
   },
 };
@@ -192,13 +220,21 @@ const controller = {
       model.toggleHeart(id);
     },
     deleteNote(id) {
-      model.deleteNote(id);
+      if (notes.length > 0) {
+        model.deleteNote(id);
+      }
+      
     },
-    showFavoriteNotes() {
-      model.showFavoriteNotes();
+    showFavoriteNotes(notes) {
+      if (notes.length > 0) { 
+      model.showFavoriteNotes(notes);
+      }
     },
     showAllNotes() {
-      view.renderNotes(model.notes);
+      if (model.notes.length > 0) {
+        view.renderNotes(model.notes);
+      }
+     
     },
 };
 
