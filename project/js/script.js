@@ -59,12 +59,18 @@ const colors = {
     PURPLE: 'purple',
 };
 
+const messages = [
+  {
+    
+  }
+]
+
 const model = {
     notes: MOCK_NOTES,
     addNote(title, description, color) {
         const newNote = {
-            id: new Date().getTime(), 
-            title: title.toString(),
+            id: new Date().trim(), 
+            title: title.trim(),
             description: description.toString(), 
             color: color,
             isFavorite: false,
@@ -138,13 +144,17 @@ const view = {
 
       form.addEventListener("submit", function (event) {
           event.preventDefault();
-          const title = inputTitle.value;
-          const description = inputDescription.value;
+          const title = inputTitle.value.trim();
+          const description = inputDescription.value.trim();
          
+          if (title.length <= 0 || description.length <= 0) {
+            view.showUnfilledMessage()
+          } else {
             controller.addNote(title, description, color);
-            inputTitle.value = "";
-            inputDescription.value = "";
+          inputTitle.value = "";
+          inputDescription.value = "";  
           }
+        }
           
       );
       
@@ -170,13 +180,34 @@ const view = {
 
   },
   
+  
   showErrorMessage(){
     const messageBox = document.querySelector('.messages-box');
-      messageBox.innerHTML += `<img class="message-done" src="assets/AlertError.png" alt="ERROR">`;
+      messageBox.innerHTML += `<img class="message" src="assets/AlertError.png" alt="ERROR">`;
       const removeErrorMessage = () => {
         messageBox.innerHTML = '';
       }
       setTimeout(removeErrorMessage, 3500)
+
+  },
+
+  showUnfilledMessage(){
+    const messageBox = document.querySelector('.messages-box');
+      messageBox.innerHTML += `<img class="message" src="assets/AlertField.png" alt="ERROR">`;
+      const removeUnfilledMessage = () => {
+        messageBox.innerHTML = '';
+      }
+      setTimeout(removeUnfilledMessage, 3500)
+
+  },
+
+  showDeleteMessage(){
+    const messageBox = document.querySelector('.messages-box');
+      messageBox.innerHTML += `<img class="message" src="assets/AlertDelete.png" alt="DELETE">`;
+      const removeDeleteMessage = () => {
+        messageBox.innerHTML = '';
+      }
+      setTimeout(removeDeleteMessage, 3500)
 
   },
   renderNotes(notes) {
@@ -244,6 +275,7 @@ const controller = {
     deleteNote(id) {
       if (notes.length > 0) {
         model.deleteNote(id);
+        view.showDeleteMessage();
       }
       
     },
