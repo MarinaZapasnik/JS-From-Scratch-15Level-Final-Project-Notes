@@ -61,17 +61,38 @@ const colors = {
 
 const messages = [
   {
-    
-  }
+    name: 'error',
+    class: 'message',
+    src: 'assets/AlertError.png',
+    alt: 'Максимальная длина заголовка - 50 символов',
+  },
+  {
+    name: 'done',
+    class: 'message',
+    src: 'assets/AlertDone.png',
+    alt: 'Заметка добавлена!',
+  },
+  {
+    name: 'delete',
+    class: 'message',
+    src: 'assets/AlertDelete.png',
+    alt: 'Заметка удалена!',
+  },
+  {
+    name: 'field',
+    class: 'message',
+    src: 'assets/AlertField.png',
+    alt: 'Заполните все поля!',
+  },
 ]
 
 const model = {
     notes: MOCK_NOTES,
     addNote(title, description, color) {
         const newNote = {
-            id: new Date().trim(), 
+            id: new Date().getTime(), 
             title: title.trim(),
-            description: description.toString(), 
+            description: description.trim(), 
             color: color,
             isFavorite: false,
         }
@@ -137,7 +158,7 @@ const view = {
       form.addEventListener('input', function (event) {
         if (event.target.id === "note-title") {
           if (event.target.value.length > 50) {
-            view.showErrorMessage()
+            view.showMessage('error')
           }
         }
       });
@@ -148,7 +169,7 @@ const view = {
           const description = inputDescription.value.trim();
          
           if (title.length <= 0 || description.length <= 0) {
-            view.showUnfilledMessage()
+            view.showMessage('field')
           } else {
             controller.addNote(title, description, color);
           inputTitle.value = "";
@@ -170,46 +191,60 @@ const view = {
       });
   },
 
-  showDoneMessage(){
-    const messageBox = document.querySelector('.messages-box');
-      messageBox.innerHTML += `<img class="message-done" src="assets/AlertDone.png" alt="DONE">`;
-      const removeDoneMessage = () => {
+  showMessage(messageName) {
+    
+    const message = messages.find(msg => msg.name === messageName);
+    if (message) {
+      const messageBox = document.querySelector('.messages-box');
+      messageBox.innerHTML += `<img class=${message.class} src=${message.src} alt=${message.alt}>`;
+      const removeMessage = () => {
         messageBox.innerHTML = '';
       }
-      setTimeout(removeDoneMessage, 3500)
-
+      setTimeout(removeMessage, 3500)
+    }
   },
   
+
+  // showDoneMessage(){
+  //   const messageBox = document.querySelector('.messages-box');
+  //     messageBox.innerHTML += `<img class="message-done" src="assets/AlertDone.png" alt="DONE">`;
+  //     const removeDoneMessage = () => {
+  //       messageBox.innerHTML = '';
+  //     }
+  //     setTimeout(removeDoneMessage, 3500)
+
+  // },
   
-  showErrorMessage(){
-    const messageBox = document.querySelector('.messages-box');
-      messageBox.innerHTML += `<img class="message" src="assets/AlertError.png" alt="ERROR">`;
-      const removeErrorMessage = () => {
-        messageBox.innerHTML = '';
-      }
-      setTimeout(removeErrorMessage, 3500)
+  
+  // showErrorMessage(){
+  //   const messageBox = document.querySelector('.messages-box');
+  //     messageBox.innerHTML += `<img class="message" src="assets/AlertError.png" alt="ERROR">`;
+  //     const removeErrorMessage = () => {
+  //       messageBox.innerHTML = '';
+  //     }
+  //     setTimeout(removeErrorMessage, 3500)
 
-  },
+  // },
 
-  showUnfilledMessage(){
-    const messageBox = document.querySelector('.messages-box');
-      messageBox.innerHTML += `<img class="message" src="assets/AlertField.png" alt="ERROR">`;
-      const removeUnfilledMessage = () => {
-        messageBox.innerHTML = '';
-      }
-      setTimeout(removeUnfilledMessage, 3500)
+  // showUnfilledMessage(){
+  //   const messageBox = document.querySelector('.messages-box');
+  //     messageBox.innerHTML += `<img class="message" src="assets/AlertField.png" alt="ERROR">`;
+  //     const removeUnfilledMessage = () => {
+  //       messageBox.innerHTML = '';
+  //     }
+  //     setTimeout(removeUnfilledMessage, 3500)
 
-  },
+  // },
 
-  showDeleteMessage(){
-    const messageBox = document.querySelector('.messages-box');
-      messageBox.innerHTML += `<img class="message" src="assets/AlertDelete.png" alt="DELETE">`;
-      const removeDeleteMessage = () => {
-        messageBox.innerHTML = '';
-      }
-      setTimeout(removeDeleteMessage, 3500)
+  // showDeleteMessage(){
+  //   const messageBox = document.querySelector('.messages-box');
+  //     messageBox.innerHTML += `<img class="message" src="assets/AlertDelete.png" alt="DELETE">`;
+  //     const removeDeleteMessage = () => {
+  //       messageBox.innerHTML = '';
+  //     }
+  //     setTimeout(removeDeleteMessage, 3500)
 
-  },
+  // },
   renderNotes(notes) {
     
     const list = document.querySelector(".notes-list");
@@ -266,7 +301,7 @@ const controller = {
     addNote(title, description, color) {
         if (title && title.trim() !== '' && description && description.trim() !== '') {
             model.addNote(title, description, color)
-            view.showDoneMessage()
+            view.showMessage('done')
         }
     },
     toggleHeart(id){
@@ -275,7 +310,7 @@ const controller = {
     deleteNote(id) {
       if (notes.length > 0) {
         model.deleteNote(id);
-        view.showDeleteMessage();
+        view.showMessage('delete');
       }
       
     },
