@@ -64,8 +64,8 @@ const model = {
     addNote(title, description, color) {
         const newNote = {
             id: new Date().getTime(), 
-            title: title,
-            description: description, 
+            title: title.toString(),
+            description: description.toString(), 
             color: color,
             isFavorite: false,
         }
@@ -96,7 +96,8 @@ const view = {
     const inputTitle = document.querySelector("#note-title");
     const inputDescription = document.querySelector("#note-description");
     
-    let color = document.querySelector('input[name="color"]:checked').value;
+    let colorCircle = document.querySelector('input[name="color"]:checked')
+    let color = colorCircle.value;
     
     const filterBox = document.querySelector(".filter-box");
 
@@ -122,18 +123,30 @@ const view = {
       form.addEventListener("click", function (event) {
         if (event.target.name === "color") {
           color = event.target.value;
+          colorCircle = event.target;
+          
         };
+      });
+
+      form.addEventListener('input', function (event) {
+        if (event.target.id === "note-title") {
+          if (event.target.value.length > 50) {
+            view.showErrorMessage()
+          }
+        }
       });
 
       form.addEventListener("submit", function (event) {
           event.preventDefault();
           const title = inputTitle.value;
           const description = inputDescription.value;
-
-          controller.addNote(title, description, color);
-          inputTitle.value = "";
-          inputDescription.value = "";
-      });
+         
+            controller.addNote(title, description, color);
+            inputTitle.value = "";
+            inputDescription.value = "";
+          }
+          
+      );
       
 
       filterBox.addEventListener('change', function(event) {
@@ -149,14 +162,23 @@ const view = {
 
   showDoneMessage(){
     const messageBox = document.querySelector('.messages-box');
-      messageBox.innerHTML += `<img src="assets/AlertDone.png" alt="DONE">`;
-      const removeMessage = () => {
+      messageBox.innerHTML += `<img class="message-done" src="assets/AlertDone.png" alt="DONE">`;
+      const removeDoneMessage = () => {
         messageBox.innerHTML = '';
       }
-      setTimeout(removeMessage, 2000)
+      setTimeout(removeDoneMessage, 3500)
 
   },
   
+  showErrorMessage(){
+    const messageBox = document.querySelector('.messages-box');
+      messageBox.innerHTML += `<img class="message-done" src="assets/AlertError.png" alt="ERROR">`;
+      const removeErrorMessage = () => {
+        messageBox.innerHTML = '';
+      }
+      setTimeout(removeErrorMessage, 3500)
+
+  },
   renderNotes(notes) {
     
     const list = document.querySelector(".notes-list");
