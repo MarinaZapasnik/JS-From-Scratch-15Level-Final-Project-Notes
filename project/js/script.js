@@ -181,9 +181,10 @@ const view = {
       
 
       filterBox.addEventListener('change', function(event) {
+        
         if (event.target.classList.contains('favorite')) {
           if (event.target.checked) {
-            controller.showFavoriteNotes(notes);
+            controller.showFavoriteNotes(notes); 
           } else {
             controller.showAllNotes();
           }
@@ -192,10 +193,10 @@ const view = {
   },
 
   showMessage(messageName) {
-    
+    const messageBox = document.querySelector('.messages-box');
+    messageBox.innerHTML = '';
     const message = messages.find(msg => msg.name === messageName);
     if (message) {
-      const messageBox = document.querySelector('.messages-box');
       messageBox.innerHTML += `<img class=${message.class} src=${message.src} alt=${message.alt}>`;
       const removeMessage = () => {
         messageBox.innerHTML = '';
