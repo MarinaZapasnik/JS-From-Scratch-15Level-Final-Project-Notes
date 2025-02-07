@@ -3,28 +3,29 @@
 *::after {
     box-sizing: border-box;
 }
-/* 
+
 @font-face {
     font-family: 'Montserrat';
-    src: url('assets/fonts/Montserrat-Bold.ttf') format('woff2');
-    
+    src: url('../assets/fonts/Montserrat-Bold.ttf') format('truetype');
+    font-weight: bold;
 }
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('assets/fonts/Montserrat-Medium.ttf') format('woff2');
-  
+    src: url('../assets/fonts/Montserrat-Medium.ttf') format('truetype');
+    font-weight: 500;
 }
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('assets/fonts/Montserrat-Regular.ttf') format('woff2');
-    
-}  */
+    src: url('../assets/fonts/Montserrat-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
 
 body {
     margin: 0;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .container {
@@ -38,6 +39,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    background: #fafafc;
 }
 
 
@@ -49,7 +51,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    
 }
 
 .header-logo {
@@ -145,14 +147,14 @@ label[for="note-description"] {
     color: #919191;
 }
 
-#note-description{
+#note-description {
     border: 1px solid #e8e8e8;
     border-radius: 10px;
     padding: 6px 12px;
     max-width: 848px;
     width: 100%;
     height: 84px;
-    display: flex;
+    
 }
 #note-description::placeholder {
     height: 24px;
@@ -307,7 +309,7 @@ button#note-add {
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
-    text-align: start;
+    text-align: center;
     color: #000;
     margin: auto;
 }
@@ -317,7 +319,8 @@ button#note-add {
     flex-direction: column;
     border-radius: 10px;
     width: 368px;
-    
+    height: auto;
+    overflow: hidden;
     box-shadow: 0 4px 8px 0 rgba(11, 12, 13, 0.08), 0 8px 16px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
 }
 
@@ -351,6 +354,7 @@ h2.note-title {
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
+    text-align: left;
     color: #292515;
     word-wrap: break-word;
     
@@ -371,6 +375,7 @@ p.note-description {
     height: auto;
     background: #fff;
     word-wrap: break-word;
+    flex-grow: 1;
 }
 
 
@@ -378,4 +383,21 @@ p.note-description {
 .trash {
     height: 16px;
     width: 16px;
+}
+
+.messages-box {
+    position: fixed;
+    bottom: 75px; /* Расстояние от верхней части окна */
+    right: 260px; /* Расстояние от левой части окна */z-index: 1000; /* Убедитесь, что элемент находится поверх других элементов */
+}
+
+
+
+@media (max-width: 650px) {
+    .header {
+        flex-direction: column;
+        height: auto;
+        align-items: baseline;
+
+    }
 }
