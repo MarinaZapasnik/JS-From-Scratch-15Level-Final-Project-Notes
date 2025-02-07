@@ -391,7 +391,9 @@ p.note-description {
     right: 260px; /* Расстояние от левой части окна */z-index: 1000; /* Убедитесь, что элемент находится поверх других элементов */
 }
 
-
+.audio {
+    display: none;
+}
 
 @media (max-width: 650px) {
     .header {

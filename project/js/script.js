@@ -51,13 +51,13 @@ const MOCK_NOTES = [
 ];
 
 
-const colors = {
-    GREEN: 'green',
-    BLUE: 'blue',
-    RED: 'red',
-    YELLOW: 'yellow',
-    PURPLE: 'purple',
-};
+// const colors = {
+//     GREEN: 'green',
+//     BLUE: 'blue',
+//     RED: 'red',
+//     YELLOW: 'yellow',
+//     PURPLE: 'purple',
+// };
 
 const messages = [
   {
@@ -197,7 +197,12 @@ const view = {
     messageBox.innerHTML = '';
     const message = messages.find(msg => msg.name === messageName);
     if (message) {
-      messageBox.innerHTML += `<img class=${message.class} src=${message.src} alt=${message.alt}>`;
+      messageBox.innerHTML += `<audio class="audio" style="display: none;">
+                                    <source src="assets/sound.mp3" type="audio/mp3">
+                                </audio>
+                                <img class=${message.class} src=${message.src} alt=${message.alt}>`;
+      const audio = document.querySelector('.audio');
+      audio.play();
       const removeMessage = () => {
         messageBox.innerHTML = '';
       }
