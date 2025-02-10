@@ -26,6 +26,8 @@
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
+    min-width: 380px;
+    overflow-x: hidden;
 }
 
 .container {
@@ -40,6 +42,7 @@ body {
     align-items: center;
     overflow: hidden;
     background: #fafafc;
+    
 }
 
 
@@ -97,6 +100,7 @@ main {
 .note-form {
     min-height: 230px;
     max-width: 1150px;
+    min-width: 380px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -276,6 +280,7 @@ button#note-add {
     padding-right: 64px; 
     display: flex;
     flex-direction: column; 
+    min-width: 380px;
 }
 
 .favorite-checkbox{
@@ -318,7 +323,7 @@ button#note-add {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    width: 368px;
+    min-width: 368px;
     height: auto;
     overflow: hidden;
     box-shadow: 0 4px 8px 0 rgba(11, 12, 13, 0.08), 0 8px 16px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
@@ -401,5 +406,27 @@ p.note-description {
         height: auto;
         align-items: baseline;
 
+    }
+
+    .description-section {
+        flex-direction: column;
+    }
+
+    #note-description {
+        max-width: 344px;
+    }
+
+    .favorite-checkbox {
+       justify-content: start;
+    }
+
+    .box {
+        padding-left: 10px;
+    }
+
+    .note-form {
+        padding: 0;
+        margin: auto;
+        padding: 10px;
     }
 }
