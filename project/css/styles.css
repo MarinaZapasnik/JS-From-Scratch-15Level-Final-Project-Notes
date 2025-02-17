@@ -255,7 +255,8 @@ fieldset {
     0 0 0 4.5px #007BFF; /* Внешняя обводка */
   }
 
-button#note-add {
+button#note-add,
+button  {
     border: none;
     border-radius: 10px;
     padding: 6px 24px;
@@ -353,7 +354,9 @@ button#note-add {
     align-items: center;  
 }
 
-h2.note-title {
+h2.note-title,
+h3
+ {
     min-width: 300px;
     height: auto;
     font-weight: 500;
@@ -394,6 +397,28 @@ p.note-description {
     position: fixed;
     bottom: 75px; /* Расстояние от верхней части окна */
     right: 260px; /* Расстояние от левой части окна */z-index: 1000; /* Убедитесь, что элемент находится поверх других элементов */
+}
+
+.warning {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    min-width: 368px;
+    height: auto;
+    overflow: hidden;
+    box-shadow: 0 4px 8px 0 rgba(11, 12, 13, 0.08), 0 8px 16px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+}
+
+h3 {
+    padding: 12px;
+}
+
+.buttons { 
+    display: flex;
+    padding: 12px;
+    gap: 12px;
+
+
 }
 
 .audio {

@@ -123,6 +123,7 @@ const view = {
     const inputTitle = document.querySelector("#note-title");
     const inputDescription = document.querySelector("#note-description");
     
+    
     let colorCircle = document.querySelector('input[name="color"]:checked')
     let color = colorCircle.value;
     
@@ -142,8 +143,10 @@ const view = {
           controller.toggleHeart(id);
         };
         if (event.target.classList.contains('trash')) {
-          controller.deleteNote(id);
+          view.showWarningMessage(id);
         };
+
+        
         
       });
         
@@ -197,17 +200,50 @@ const view = {
     messageBox.innerHTML = '';
     const message = messages.find(msg => msg.name === messageName);
     if (message) {
-      messageBox.innerHTML += `<audio class="audio" style="display: none;">
+      messageBox.innerHTML += `<div class='message'>
+                                  <img class=${message.class} src=${message.src} alt=${message.alt}>
+                                </div>`;
+      
+      const removeMessage = () => {
+        const messageImg = document.querySelector('.message');
+        if (messageImg) {
+          messageImg.remove();
+        }
+        
+      }
+      setTimeout(removeMessage, 3000);
+      
+      
+    }
+  },
+
+  showWarningMessage(id) {
+    const messageBox = document.querySelector('.messages-box');
+    messageBox.innerHTML = '';
+    messageBox.innerHTML += `<div class='warning'>
+                                <audio class="audio" style="display: none;">
                                     <source src="assets/sound.mp3" type="audio/mp3">
                                 </audio>
-                                <img class=${message.class} src=${message.src} alt=${message.alt}>`;
-      const audio = document.querySelector('.audio');
-      audio.play();
-      const removeMessage = () => {
-        messageBox.innerHTML = '';
+                                
+                              <h3>Вы действительно хотите удалить заметку?</h3>
+                              <div class='buttons'>
+                                <button class='yes'>Да!</button>
+                                <button class='no'>Нет!</button> 
+                              </div>
+                              
+                            </div>`;
+    const audio = document.querySelector(".audio");
+    audio.play();
+
+    messageBox.addEventListener("click", function (event) {
+      if (event.target.classList.contains("yes")) {
+        controller.deleteNote(id);
+        
+      } else {
+        messageBox.innerHTML = "";
       }
-      setTimeout(removeMessage, 3500)
-    }
+    });                       
+
   },
   
 
@@ -317,6 +353,7 @@ const controller = {
       if (notes.length > 0) {
         model.deleteNote(id);
         view.showMessage('delete');
+        
       }
       
     },
