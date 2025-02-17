@@ -277,6 +277,7 @@ button  {
 .box {
     height: auto;
     width: 100%;  
+    margin-left: 12px;
     padding-left: 64px;
     padding-right: 64px; 
     display: flex;
@@ -394,16 +395,20 @@ p.note-description {
 }
 
 .messages-box {
+    max-width: 1152px;
+    margin-right: 18px;
     position: fixed;
-    bottom: 75px; /* Расстояние от верхней части окна */
-    right: 260px; /* Расстояние от левой части окна */z-index: 1000; /* Убедитесь, что элемент находится поверх других элементов */
+    bottom: 100px; /* Расстояние от верхней части окна */
+    left: 100px; /* Расстояние от левой части окна */z-index: 1000; /* Убедитесь, что элемент находится поверх других элементов */
 }
 
 .warning {
+    max-width: 368px;
+    background-color: #F37D7D;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    min-width: 368px;
+    
     height: auto;
     overflow: hidden;
     box-shadow: 0 4px 8px 0 rgba(11, 12, 13, 0.08), 0 8px 16px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
@@ -411,12 +416,14 @@ p.note-description {
 
 h3 {
     padding: 12px;
+    color: #fff;
 }
 
 .buttons { 
     display: flex;
     padding: 12px;
     gap: 12px;
+    width: 180px;
 
 
 }

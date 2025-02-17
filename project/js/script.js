@@ -238,8 +238,8 @@ const view = {
     messageBox.addEventListener("click", function (event) {
       if (event.target.classList.contains("yes")) {
         controller.deleteNote(id);
-        
-      } else {
+      } 
+      if (event.target.classList.contains("no")) {
         messageBox.innerHTML = "";
       }
     });                       
