@@ -3,7 +3,7 @@ const MOCK_NOTES = [
     id: 1,
     title: 'Работа с формами',
     description: 'К определённым полям формы можно обратиться через form.elements по значению, указанному в атрибуте name',
-    color: 'green',
+    color: colors.GREEN,
     isFavorite: false,
   },
   {
@@ -93,7 +93,7 @@ const model = {
             id: new Date().getTime(), 
             title: title.trim(),
             description: description.trim(), 
-            color: color,
+            color, // color: color
             isFavorite: false,
         }
         this.notes.unshift(newNote); 
